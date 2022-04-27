@@ -51,6 +51,7 @@ build:
 deploy:
   kubectl:
     manifests:
+    - ./kubernetes-manifests/namespaces.yaml
     - ./kubernetes-manifests/adservice.yaml
     - ./kubernetes-manifests/cartservice.yaml
     - ./kubernetes-manifests/checkoutservice.yaml

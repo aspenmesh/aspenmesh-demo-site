@@ -16,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendationservice
+  namespace: recommendations
 spec:
   selector:
     matchLabels:
@@ -44,7 +45,7 @@ spec:
         - name: PORT
           value: "8080"
         - name: PRODUCT_CATALOG_SERVICE_ADDR
-          value: "productcatalogservice:3550"
+          value: "productcatalogservice.product-catalog:3550"
         - name: DISABLE_TRACING
           value: "1"
         - name: DISABLE_PROFILER
@@ -63,6 +64,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: recommendationservice
+  namespace: recommendations
 spec:
   type: ClusterIP
   selector:
