@@ -30,7 +30,18 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - "boutique.amdev.pintobean.xyz"
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: boutique-tls
+    hosts:
+    - "boutique.amdev.pintobean.xyz"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -39,7 +50,7 @@ metadata:
   namespace: frontend
 spec:
   hosts:
-  - "*"
+  - "boutique.amdev.pintobean.xyz"
   gateways:
   - frontend-gateway
   http:
