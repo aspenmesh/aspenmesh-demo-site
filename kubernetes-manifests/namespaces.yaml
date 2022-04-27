@@ -5,6 +5,7 @@ metadata:
   name: frontend
   labels:
     name: frontend
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -12,6 +13,7 @@ metadata:
   name: product-catalog
   labels:
     name: product-catalog
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -19,6 +21,7 @@ metadata:
   name: recommendations
   labels:
     name: recommendations
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -26,6 +29,7 @@ metadata:
   name: fulfillment
   labels:
     name: fulfillment
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -33,6 +37,7 @@ metadata:
   name: ad-engine
   labels:
     name: ad-engine
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -40,6 +45,7 @@ metadata:
   name: payments
   labels:
     name: payments
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -47,6 +53,7 @@ metadata:
   name: checkout
   labels:
     name: checkout
+    istio-injection: enabled
 ---
 kind: Namespace
 apiVersion: v1
@@ -54,4 +61,5 @@ metadata:
   name: shopping-cart
   labels:
     name: shopping-cart
+    istio-injection: enabled
 ---
