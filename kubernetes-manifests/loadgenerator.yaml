@@ -15,6 +15,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loadgenerator
+  namespace: frontend
 spec:
   selector:
     matchLabels:
@@ -45,13 +46,13 @@ spec:
         image: busybox:latest
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "frontend.frontend:80"
       containers:
       - name: main
         image: loadgenerator
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "frontend.frontend:80"
         - name: USERS
           value: "10"
         resources:

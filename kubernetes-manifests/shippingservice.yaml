@@ -16,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shippingservice
+  namespace: fulfillment
 spec:
   selector:
     matchLabels:
@@ -40,8 +41,6 @@ spec:
           value: "1"
         - name: DISABLE_PROFILER
           value: "1"
-        # - name: JAEGER_SERVICE_ADDR
-        #   value: "jaeger-collector:14268"
         readinessProbe:
           periodSeconds: 5
           exec:
@@ -61,6 +60,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: shippingservice
+  namespace: fulfillment
 spec:
   type: ClusterIP
   selector:

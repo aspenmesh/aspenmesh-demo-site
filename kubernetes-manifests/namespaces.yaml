@@ -1,0 +1,57 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: frontend
+  labels:
+    name: frontend
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: product_catalog
+  labels:
+    name: product_catalog
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: recommendations
+  labels:
+    name: recommendations
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: fulfillment
+  labels:
+    name: fulfillment
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: ad_engine
+  labels:
+    name: ad_engine
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: payments
+  labels:
+    name: payments
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: checkout
+  labels:
+    name: checkout
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: shopping_cart
+  labels:
+    name: shopping_cart
+---
