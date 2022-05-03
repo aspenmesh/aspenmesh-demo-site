@@ -15,14 +15,14 @@
 package main
 
 import (
-	"bytes"
 	"context"
+	"database/sql"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"net"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"sync"
 	"syscall"
@@ -34,8 +34,8 @@ import (
 	"cloud.google.com/go/profiler"
 	"contrib.go.opencensus.io/exporter/jaeger"
 	"contrib.go.opencensus.io/exporter/stackdriver"
-	"github.com/golang/protobuf/jsonpb"
 	"github.com/sirupsen/logrus"
+
 	//  "go.opencensus.io/exporter/jaeger"
 	"go.opencensus.io/plugin/ocgrpc"
 	"go.opencensus.io/stats/view"
@@ -43,6 +43,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	_ "github.com/lib/pq"
 )
 
 var (
@@ -54,7 +56,23 @@ var (
 	port = "3550"
 
 	reloadCatalog bool
+
+	id          string
+	name        string
+	description string
+	picture     string
+	units       int64
+	nanos       int32
+	categories  string
 )
+
+func getEnv(key, defaultValue string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return defaultValue
+	}
+	return value
+}
 
 func init() {
 	log = logrus.New()
@@ -235,16 +253,48 @@ type productCatalog struct{}
 func readCatalogFile(catalog *pb.ListProductsResponse) error {
 	catalogMutex.Lock()
 	defer catalogMutex.Unlock()
-	catalogJSON, err := ioutil.ReadFile("products.json")
+
+	dbport, _ := strconv.Atoi(getEnv("PG_PORT", "5432"))
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		getEnv("PG_HOST", "localhost"),
+		dbport,
+		getEnv("PG_USERNAME", "boutique"),
+		getEnv("PG_PASSWORD", "boutique"),
+		getEnv("PG_DATABASE", "boutique"))
+	db, err := sql.Open("postgres", psqlInfo)
+	defer db.Close()
 	if err != nil {
-		log.Fatalf("failed to open product catalog json file: %v", err)
-		return err
+		log.Fatal(err)
 	}
-	if err := jsonpb.Unmarshal(bytes.NewReader(catalogJSON), catalog); err != nil {
-		log.Warnf("failed to parse the catalog JSON: %v", err)
-		return err
+
+	rows, err := db.Query("SELECT * FROM products")
+	defer rows.Close()
+	if err != nil {
+		log.Fatal(err)
 	}
-	log.Info("successfully parsed product catalog json")
+
+	for rows.Next() {
+		rows.Scan(&id, &name, &description, &picture, &units, &nanos, &categories)
+		var money = pb.Money{
+			CurrencyCode: "USD",
+			Units:        units,
+			Nanos:        nanos,
+		}
+		var product pb.Product
+
+		product = pb.Product{
+			Id:          id,
+			Name:        name,
+			Description: description,
+			Picture:     picture,
+			PriceUsd:    &money,
+			Categories:  strings.Split(categories, ","),
+		}
+		catalog.Products = append(catalog.Products, &product)
+	}
+
+	log.Info("successfully retrieved product catalog: ", catalog.Products)
 	return nil
 }
 
