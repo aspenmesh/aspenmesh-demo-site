@@ -16,11 +16,212 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/command-runner/emailservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/emailservice:$TAG ./src/emailservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/command-runner/emailservice:$TAG
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/emailservice:$TAG
+  build-boutiquedb:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=1.0.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG
+  build-productcatalogservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG
+  build-adservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG
+  build-recommendationservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG
+  build-shippingservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG
+  build-checkoutservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG
+  build-paymentservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG
+  build-currencyservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG
+  build-cartservice:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG
+  build-frontend:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=0.1.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG ./src/emailservice
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG
+
 workflows:
   release:
     jobs:
       - build-emailservice:
+          context: harbor-credentials
+      - build-boutiquedb:
+          context: harbor-credentials
+      - build-productcatalogservice:
+          context: harbor-credentials
+      - build-adservice:
+          context: harbor-credentials
+      - build-recommendationservice:
+          context: harbor-credentials
+      - build-shippingservice:
+          context: harbor-credentials
+      - build-checkoutservice:
+          context: harbor-credentials
+      - build-paymentservice:
+          context: harbor-credentials
+      - build-currencyservice:
+          context: harbor-credentials
+      - build-cartservice:
+          context: harbor-credentials
+      - build-frontend:
           context: harbor-credentials
