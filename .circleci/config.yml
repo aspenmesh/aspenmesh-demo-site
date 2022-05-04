@@ -16,7 +16,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/command-runner/emailservice:$TAG ./emailservice
+            docker build -t harbor.pintobean.xyz/command-runner/emailservice:$TAG ./src/emailservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/command-runner/emailservice:$TAG
 workflows:
