@@ -22,5 +22,5 @@ jobs:
 workflows:
   release:
     jobs:
-      - push-image:
+      - build-emailservice:
           context: harbor-credentials
