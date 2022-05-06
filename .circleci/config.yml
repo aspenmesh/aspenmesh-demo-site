@@ -34,7 +34,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=1.0.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG ./src/boutiquedb
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG
   build-productcatalogservice:
@@ -52,7 +52,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG ./src/productcatalogservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG
   build-adservice:
@@ -70,7 +70,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG ./src/adservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG
   build-recommendationservice:
@@ -88,7 +88,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG ./src/recommendationservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG
   build-shippingservice:
@@ -106,7 +106,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG ./src/shippingservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG
   build-checkoutservice:
@@ -124,7 +124,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG ./src/checkoutservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG
   build-paymentservice:
@@ -142,7 +142,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG ./src/paymentservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG
   build-currencyservice:
@@ -160,7 +160,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG ./src/currencyservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG
   build-cartservice:
@@ -178,7 +178,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG ./src/cartservice
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG
   build-frontend:
@@ -196,7 +196,7 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG ./src/emailservice
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG ./src/frontend
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG
 
