@@ -72,3 +72,5 @@ service:
   port: 8080
   targetPort: 8080
   name: http
+hostnames:
+- "boutique.amdev.pintobean.xyz"
