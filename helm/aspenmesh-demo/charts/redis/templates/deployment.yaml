@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "redis.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "redis.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "redis.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "redis.serviceAccountName" . }}
+      containers:
+        - name: {{ default .Chart.Name .Values.container.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          livenessProbe:
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelay }}
+            periodSeconds: {{ .Values.livenessProbe.period }}
+            tcpSocket:
+              port: {{ .Values.livenessProbe.tcpSocket.port }}
+          readinessProbe:
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelay }}
+            periodSeconds: {{ .Values.readinessProbe.period }}
+            tcpSocket:
+              port: {{ .Values.readinessProbe.tcpSocket.port }}
+          volumeMounts:
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        {{- toYaml .Values.volumes | nindent 8 }}

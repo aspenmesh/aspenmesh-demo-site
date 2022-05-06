@@ -1,0 +1,52 @@
+replicaCount: 1
+image:
+  repository: harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice
+  pullPolicy: Always
+  tag: "0.1.0"
+namespace: "recommendations"
+nameOverride: "recommendationservice"
+fullnameOverride: "recommendationservice"
+containerPort: 8080
+container:
+  name: "server"
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+livenessProbe:
+  initialDelay: 5
+  period: 5
+  command: ["/bin/grpc_health_probe", "-addr=:8080"]
+readinessProbe:
+  initialDelay: 5
+  period: 5
+  command: ["/bin/grpc_health_probe", "-addr=:8080"]
+env:
+- name: PORT
+  value: "8080"
+- name: PRODUCT_CATALOG_SERVICE_ADDR
+  value: "productcatalogservice.product-catalog:3550"
+- name: DISABLE_TRACING
+  value: "1"
+- name: DISABLE_PROFILER
+  value: "1"
+- name: DISABLE_DEBUGGER
+  value: "1"
+resources: 
+  requests:
+    cpu: 100m
+    memory: 220Mi
+  limits:
+    cpu: 200m
+    memory: 450Mi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  name: grpc

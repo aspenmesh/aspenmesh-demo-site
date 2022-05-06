@@ -1,0 +1,31 @@
+apiVersion: v2
+name: aspenmesh-demo
+description: Aspen Mesh Demo Site
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+dependencies:
+  - name: adservice
+    condition: adservice.enabled
+  - name: boutiquedb
+    condition: boutiquedb.enabled
+  - name: cartservice
+    condition: cartservice.enabled
+  - name: checkoutservice
+    condition: checkoutservice.enabled
+  - name: currencyservice
+    condition: currencyservice.enabled
+  - name: emailservice
+    condition: emailservice.enabled
+  - name: frontend
+    condition: frontend.enabled
+  - name: paymentservice
+    condition: paymentservice.enabled
+  - name: productcatalogservice
+    condition: productcatalogservice.enabled
+  - name: recommendationservice
+    condition: recommendationservice.enabled
+  - name: redis
+    condition: redis.enabled
+  - name: shippingservice
+    condition: shippingservice.enabled

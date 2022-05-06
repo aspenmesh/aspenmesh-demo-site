@@ -1,0 +1,40 @@
+replicaCount: 1
+image:
+  repository: harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb
+  pullPolicy: Always
+  tag: "1.0.0"
+namespace: "product-catalog"
+nameOverride: "boutiquedb"
+fullnameOverride: "boutiquedb"
+containerPort: 5432
+container:
+  name: "boutiquedb"
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+service:
+  type: ClusterIP
+  port: 5432
+  targetPort: 5432
+  name: tcp
+env:
+- name: DISABLE_PROFILER
+  value: "1"
+- name: DISABLE_STATS
+  value: "1"
+- name: DISABLE_TRACING
+  value: "1"
+resources: 
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80

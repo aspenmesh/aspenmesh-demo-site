@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shippingservice.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "shippingservice.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "shippingservice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "shippingservice.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "shippingservice.serviceAccountName" . }}
+      containers:
+        - name: {{ default .Chart.Name .Values.container.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          #livenessProbe:
+          #  initialDelaySeconds: {{ .Values.livenessProbe.initialDelay }}
+          #  periodSeconds: {{ .Values.livenessProbe.period }}
+          #  exec:
+          #    command: {{ .Values.livenessProbe.command }}
+          #readinessProbe:
+          #  initialDelaySeconds: {{ .Values.readinessProbe.initialDelay }}
+          #  periodSeconds: {{ .Values.readinessProbe.period }}
+          #  exec:
+          #    command: {{ .Values.readinessProbe.command }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
