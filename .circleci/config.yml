@@ -199,7 +199,24 @@ jobs:
             docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG ./src/frontend
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
             docker push harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG
-
+  build-loadgenerator:
+    docker:
+      - image: cimg/base:2022.04
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
+      - setup_remote_docker:
+          name: Setup Docker environment
+          docker_layer_caching: false
+      - run: 
+          name: Create and push image
+          command: |
+            TAG=1.0.0
+            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/loadgenerator:$TAG ./src/loadgenerator
+            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            docker push harbor.pintobean.xyz/aspenmesh-demo-site/loadgenerator:$TAG
 workflows:
   release:
     jobs:
@@ -224,4 +241,6 @@ workflows:
       - build-cartservice:
           context: harbor-credentials
       - build-frontend:
+          context: harbor-credentials
+      - build-loadgenerator:
           context: harbor-credentials
