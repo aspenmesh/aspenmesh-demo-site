@@ -1,0 +1,44 @@
+replicaCount: 1
+image:
+  repository: loadgenerator
+  pullPolicy: Always
+namespace: "frontend"
+nameOverride: "loadgenerator"
+fullnameOverride: "loadgenerator"
+containerPort: 9555
+retstartPolicy: Always
+container:
+  name: "main"
+annotations:
+  sidecar.istio.io/rewriteAppHTTPProbers: "true"
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+env:
+- name: FRONTEND_ADDR
+  value: "frontend.frontend:80"
+- name: USERS
+  value: "10"
+resources: 
+  requests:
+    cpu: 300m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+autoscaling:
+  enabled: false
+initContainer:
+  image: busybox:latest
+  name: frontend-check
+  command: 
+  - /bin/sh
+  - -exc
+  - |
+    echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
+    STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
+    if test $STATUSCODE -ne 200; then
+        echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
+        exit 1
+    fi
