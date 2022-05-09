@@ -28,7 +28,7 @@ RUN ./gradlew installDist
 FROM openjdk:8-slim
 
 # Download Stackdriver Profiler Java agent
-RUN apt-get -y update && apt-get install -qqy \
+RUN apt-get -y update && apt-get install procps && apt-get install -qqy \
     wget \
     && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /opt/cprof && \

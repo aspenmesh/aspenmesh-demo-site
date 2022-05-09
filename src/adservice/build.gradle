@@ -117,7 +117,7 @@ task adServiceClient(type: CreateStartScripts) {
     defaultJvmOpts =
             ["-Dlog4j2.contextDataInjector=io.opencensus.contrib.logcorrelation.log4j2.OpenCensusTraceContextDataInjector",
              "-agentpath:/opt/cprof/profiler_java_agent.so=-cprof_service=adserviceclient,-cprof_service_version=1.0.0",
-             "-javaagent:opentelemetry-javaagent.jar"]
+             "-javaagent:/app/opentelemetry-javaagent.jar"]
 }
 
 applicationDistribution.into('bin') {
