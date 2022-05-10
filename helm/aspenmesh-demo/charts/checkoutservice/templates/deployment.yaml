@@ -28,16 +28,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.containerPort }}
-          #livenessProbe:
-          #  initialDelaySeconds: {{ .Values.livenessProbe.initialDelay }}
-          #  periodSeconds: {{ .Values.livenessProbe.period }}
-          #  exec:
-          #    command: {{ .Values.livenessProbe.command }}
-          #readinessProbe:
-          #  initialDelaySeconds: {{ .Values.readinessProbe.initialDelay }}
-          #  periodSeconds: {{ .Values.readinessProbe.period }}
-          #  exec:
-          #    command: {{ .Values.readinessProbe.command }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:

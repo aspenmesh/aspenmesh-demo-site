@@ -32,17 +32,3 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
-        - name: {{ .Values.otelContainer.name }}
-          image: {{ .Values.otelContainer.image }}
-          args:
-          - --config=/conf/agent.yaml
-          volumeMounts:
-          - mountPath: /conf
-            name: agent-config
-      volumes:
-      - configMap:
-          items:
-          - key: agent.yaml
-            path: agent.yaml
-          name: agent-config
-        name: agent-config
