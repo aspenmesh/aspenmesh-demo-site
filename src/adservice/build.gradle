@@ -109,7 +109,7 @@ task adService(type: CreateStartScripts) {
              "-agentpath:/opt/cprof/profiler_java_agent.so=-cprof_service=adservice,-cprof_service_version=1.0.0",
              "-javaagent:/app/opentelemetry-javaagent.jar",
              "-Dotel.service.name=adService",
-             "-Dotel.traces.exporter=logging,zipkin",
+             "-Dotel.traces.exporter=logging,otlp",
              "-Dotel.exporter.otlp.endpoint=http://opentelemetrycollector.default.svc.cluster.local:4317"]
 }
 
