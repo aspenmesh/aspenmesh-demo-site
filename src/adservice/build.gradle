@@ -110,7 +110,7 @@ task adService(type: CreateStartScripts) {
              "-javaagent:/app/opentelemetry-javaagent.jar",
              "-Dotel.service.name=adService",
              "-Dotel.traces.exporter=logging,otlp",
-             "-Dotel.exporter.otlp.endpoint=http://opentelemetrycollector.default.svc.cluster.local:4317"]
+             "-Dotel.exporter.otlp.endpoint=http://opentelemetryagent.otel.svc.cluster.local:4317"]
 }
 
 task adServiceClient(type: CreateStartScripts) {
@@ -124,7 +124,7 @@ task adServiceClient(type: CreateStartScripts) {
              "-javaagent:/app/opentelemetry-javaagent.jar",
              "-Dotel.service.name=adService",
              "-Dotel.traces.exporter=logging,zipkin",
-             "-Dotel.exporter.otlp.endpoint=http://opentelemetrycollector.default.svc.cluster.local:4317"]
+             "-Dotel.exporter.otlp.endpoint=http://opentelemetryagent.otel.svc.cluster.local:4317"]
 }
 
 applicationDistribution.into('bin') {
