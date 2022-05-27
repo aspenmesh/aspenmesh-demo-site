@@ -1,7 +1,3 @@
-provider "kubernetes" {
-    config_path = "~/.kube/config"
-}
-
 resource "kubernetes_manifest" "serviceaccount_istio_system_prometheus" {
   manifest = {
     "apiVersion" = "v1"
