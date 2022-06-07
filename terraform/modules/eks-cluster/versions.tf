@@ -16,7 +16,4 @@ terraform {
     }
   }
 
-  backend "local" {
-    path = "local_tf_state/terraform-main.tfstate"
-  }
 }

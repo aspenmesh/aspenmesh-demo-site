@@ -1,10 +1,10 @@
-resource "kubernetes_namespace" "istio-system" {
+resource "kubernetes_namespace" "istio_system" {
   metadata {
     name = var.root_namespace
   }
 }
 
-resource "helm_release" "istio-base" {
+resource "helm_release" "istio_base" {
   name       = "istio-base"
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "base"
@@ -18,10 +18,9 @@ resource "helm_release" "istiod" {
   namespace  = var.root_namespace
 }
 
-resource "helm_release" "istio-ingress" {
+resource "helm_release" "istio_ingress" {
   name = "istio-ingress"
-  #repository = "https://istio-release.storage.googleapis.com/charts"
-  #chart      = "gateway"
-  chart     = "https://istio-release.storage.googleapis.com/charts/gateway-1.13.3.tgz"
+  repository = "https://istio-release.storage.googleapis.com/charts"
+  chart      = "gateway"
   namespace = var.root_namespace
 }
