@@ -29,3 +29,5 @@ dependencies:
     condition: redis.enabled
   - name: shippingservice
     condition: shippingservice.enabled
+  - name: otel
+    condition: otel.enabled

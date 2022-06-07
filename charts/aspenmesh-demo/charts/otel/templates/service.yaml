@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "otelcollector.fullname" . }}
+  namespace: {{ .Values.otelcollector.namespace }}
+  labels:
+    {{- include "otelcollector.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.otelcollector.service.type }}
+  ports:
+    - port: {{ .Values.otelcollector.service.port }}
+      targetPort: {{ .Values.otelcollector.service.targetPort }}
+      protocol: {{ .Values.otelcollector.service.protocol}}
+      name: {{ .Values.otelcollector.service.name }}
+  selector:
+    {{- include "otelcollector.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "otelagent.fullname" . }}
+  namespace: {{ .Values.otelagent.namespace }}
+  labels:
+    {{- include "otelagent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.otelagent.service.type }}
+  ports:
+    - port: {{ .Values.otelagent.service.port }}
+      targetPort: {{ .Values.otelagent.service.targetPort }}
+      protocol: {{ .Values.otelagent.service.protocol}}
+      name: {{ .Values.otelagent.service.name }}
+  selector:
+    {{- include "otelagent.selectorLabels" . | nindent 4 }}

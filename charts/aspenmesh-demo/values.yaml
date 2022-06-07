@@ -22,3 +22,5 @@ redis:
   enabled: true
 shippingservice:
   enabled: true
+otel:
+  enabled: false
