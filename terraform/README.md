@@ -15,9 +15,10 @@ This deploys the following:
 
 Ensure that you have installed the following tools before you start working with this module:
 
-1. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
-2. [Kubectl](https://Kubernetes.io/docs/tasks/tools/)
-3. [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+ 1. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+ 1. [Kubectl](https://Kubernetes.io/docs/tasks/tools/)
+ 1. [Helm](https://helm.sh/docs/intro/install/)
+ 1. [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
 ### Deployment Steps
 
@@ -73,7 +74,7 @@ In the future we will create separate Terraform configurations using data source
 
 #### Step 6: Run `update-kubeconfig` command
 
-`~/.kube/config` file gets updated with cluster details and certificate from the below command
+`~/.kube/config` file gets updated with cluster details and certificate from the below command.  This command is also an output after applying the configuration.
 
     $ aws eks --region <enter-your-region> update-kubeconfig --name <cluster-name>
 
@@ -98,10 +99,10 @@ open http://localhost:8080
 You can create a CNAME DNS record for the hostname that you created in Step 3 to expose the demo site publicly.  The CNAME record should point to the ingress gateway's External IP value:
 
 ```shell script
-kubectl get svc -n istio-system istio-ingressgateway
+kubectl get svc -n istio-system istio-ingressgateway | awk '{print $4}'
 
-NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP                                                              PORT(S)                                                                      AGE
-istio-ingressgateway   LoadBalancer   10.100.108.30   a6d274b7765a94151978dc2df034e93a-506542154.us-east-2.elb.amazonaws.com   15021:32454/TCP,80:31626/TCP,443:32767/TCP,31400:30142/TCP,15443:30750/TCP   43d
+EXTERNAL-IP
+a6d274b8802a94151978dc2df034e93a-506542154.us-east-2.elb.amazonaws.com
 ```
 
 ## How to Destroy
