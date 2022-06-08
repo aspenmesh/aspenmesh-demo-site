@@ -29,10 +29,8 @@ provider "helm" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  vpc_cidr     = var.vpc_cidr
-  vpc_name     = join("-", [var.tenant, var.environment, var.zone, "vpc"])
+  vpc_name     = join("-", [var.cluster_name, "vpc"])
   azs          = slice(data.aws_availability_zones.available.names, 0, 3)
-  cluster_name = join("-", [var.tenant, var.environment, var.zone, "eks"])
 }
 
 module "aws_vpc" {
@@ -40,11 +38,11 @@ module "aws_vpc" {
   version = "~> 3.0"
 
   name = local.vpc_name
-  cidr = local.vpc_cidr
+  cidr = var.vpc_cidr
   azs  = local.azs
 
-  public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k)]
+  private_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 10)]
 
   enable_nat_gateway   = true
   create_igw           = true
@@ -52,7 +50,7 @@ module "aws_vpc" {
   single_nat_gateway   = true
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                      = "1"
   }
 }
