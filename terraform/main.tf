@@ -3,25 +3,25 @@ provider "aws" {
 }
 
 provider "kubernetes" {
-  host                   = module.eks_blueprints.eks_cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks_blueprints.eks_cluster_certificate_authority_data)
+  host                   = module.eks_cluster.eks_cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks_cluster.eks_cluster_certificate_authority_data)
 
   exec {
     api_version = "client.authentication.k8s.io/v1alpha1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks_blueprints.eks_cluster_id]
+    args        = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
   }
 }
 
 provider "helm" {
   kubernetes {
-    host                   = module.eks_blueprints.eks_cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks_blueprints.eks_cluster_certificate_authority_data)
+    host                   = module.eks_cluster.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks_cluster.eks_cluster_certificate_authority_data)
 
     exec {
       api_version = "client.authentication.k8s.io/v1alpha1"
       command     = "aws"
-      args = ["eks", "get-token", "--cluster-name", module.eks_blueprints.eks_cluster_id]
+      args        = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
     }
   }
 }
@@ -29,7 +29,7 @@ provider "helm" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  vpc_cidr     = "10.0.0.0/16"
+  vpc_cidr     = var.vpc_cidr
   vpc_name     = join("-", [var.tenant, var.environment, var.zone, "vpc"])
   azs          = slice(data.aws_availability_zones.available.names, 0, 3)
   cluster_name = join("-", [var.tenant, var.environment, var.zone, "eks"])
@@ -57,30 +57,24 @@ module "aws_vpc" {
   }
 }
 
-module "eks_blueprints" {
-  source      = "./modules/eks-aws-main"
-  tenant      = var.tenant
-  environment = var.environment
-  zone        = var.zone
+module "eks_cluster" {
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints"
 
+  cluster_name       = var.cluster_name
   vpc_id             = module.aws_vpc.vpc_id
   private_subnet_ids = module.aws_vpc.private_subnets
 
-  cluster_version = "1.22"
+  cluster_version = var.eks_cluster_version
 
   managed_node_groups = {
     mg_4 = {
       node_group_name = "managed-ondemand"
-      instance_types  = ["m5.large"]
-      min_size        = "2"
+      instance_types  = [var.ng_instance_types]
+      min_size        = var.ng_min_size
       subnet_ids      = module.aws_vpc.private_subnets
     }
   }
 }
-
-#module "eks_cluster" {
-#  source = "./modules/eks-cluster"
-#}
 
 module "istio" {
   source = "./modules/istio"
@@ -91,6 +85,6 @@ module "integrations" {
 }
 
 module "demo_site" {
-  source = "./modules/demo-site"
+  source               = "./modules/demo-site"
   aspenmesh_demo_chart = var.aspenmesh_demo_chart
 }

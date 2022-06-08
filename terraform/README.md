@@ -13,7 +13,7 @@ This deploys the following:
 
 ### Prerequisites:
 
-Ensure that you have installed the following tools in your Mac or Windows Laptop before start working with this module and run Terraform Plan and Apply
+Ensure that you have installed the following tools before you start working with this module:
 
 1. [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 2. [Kubectl](https://Kubernetes.io/docs/tasks/tools/)
@@ -24,7 +24,7 @@ Ensure that you have installed the following tools in your Mac or Windows Laptop
 #### Step 1: Clone the repo using the command below
 
 ```shell script
-git clone https://github.com/aspenmesh/aspenmesh-demo-sit.git
+git clone https://github.com/aspenmesh/aspenmesh-demo-site.git
 ```
 
 #### Step 2: Run Terraform Init
@@ -32,30 +32,44 @@ git clone https://github.com/aspenmesh/aspenmesh-demo-sit.git
 Initialize a working directory with configuration files
 
 ```shell script
+cd aspenmesh-demo-site
 terraform init
 ```
 #### Step 3: Update variables
 
  1. Edit [`demo-site.auto.tfvars`](demo-site.auto.tfvars) and change the variables to appropriate settings.
  1. Edit [`values.yaml`](../charts/aspenmesh-demo/charts/frontend/values.yaml) in the `frontend` chart, and set the hostname for the demo site.
- 2. 
+
 #### Step 4: Run Terraform plan
 
-Verify the resources created by this execution
+There is a limitation with the Kubernetes (and Helm) provider that requires manual plans and applies.  The Kubernetes provider requires an existing cluster to fetch metadata for Kubernetes manifests and Helm charts.  Therefore, you have to create the cluster first, and then deploy all of the workloads.
+
+To accomplish this, use the `target` argument for the `terraform plan` command:
 
 ```shell script
-terraform plan
+terraform plan -target="module.aws_vpc"
+terraform plan -target="module.eks_cluster"
+terraform plan -target="module.istio"
+terraform plan -target="module.integrations"
+terraform plan -target="module.demo_site"
 ```
+
+In the future we will create separate Terraform configurations using data sources for the Kubernetes context so that you can simply run `terraform plan` in each configuration.
 
 #### Step 5: Run Terraform apply
 
-Create the resources
+As with Step 4, there is a limitation with the Kubernetes (and Helm) provider that requires manual plans and applies.  The Kubernetes provider requires an existing cluster to fetch metadata for Kubernetes manifests and Helm charts.  Therefore, you have to create the cluster first, and then deploy all of the workloads.
+
+To accomplish this, use the `target` argument for the `terraform apply` command:
 
 ```shell script
-terraform apply
+terraform apply -target="module.aws_vpc"
+terraform apply -target="module.eks_cluster"
+terraform apply -target="module.istio"
+terraform apply -target="module.integrations"
+terraform apply -target="module.demo_site"
 ```
-
-Enter `yes` to apply
+In the future we will create separate Terraform configurations using data sources for the Kubernetes context so that you can simply run `terraform apply` in each configuration.
 
 #### Step 6: Run `update-kubeconfig` command
 
@@ -73,7 +87,22 @@ Forward the ports for the following workloads in `kubectl`:
 |istio-system|kiali-xxx|20001|
 |frontend|frontend-xxx|8080|
 
-You should also be able to navigate to the demo site hostname set up in step 3.
+And then open these URLs in a browser to make sure everything is deployed:
+
+```shell script
+open http://localhost:3000
+open http://localhost:20001
+open http://localhost:8080
+```
+
+You can create a CNAME DNS record for the hostname that you created in Step 3 to expose the demo site publicly.  The CNAME record should point to the ingress gateway's External IP value:
+
+```shell script
+kubectl get svc -n istio-system istio-ingressgateway
+
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP                                                              PORT(S)                                                                      AGE
+istio-ingressgateway   LoadBalancer   10.100.108.30   a6d274b7765a94151978dc2df034e93a-506542154.us-east-2.elb.amazonaws.com   15021:32454/TCP,80:31626/TCP,443:32767/TCP,31400:30142/TCP,15443:30750/TCP   43d
+```
 
 ## How to Destroy
 

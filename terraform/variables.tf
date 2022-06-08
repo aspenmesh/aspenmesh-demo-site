@@ -1,25 +1,36 @@
-variable "tenant" {
+variable "cluster_name" {
   type        = string
-  description = "Account Name or unique account unique id e.g., apps or management or aws007"
-  default     = "aws"
-}
-
-variable "environment" {
-  type        = string
-  default     = "preprod"
-  description = "Environment area, e.g. prod or preprod "
-}
-
-variable "zone" {
-  type        = string
-  description = "zone, e.g. dev or qa or load or ops etc..."
-  default     = "dev"
+  description = "Name of the EKS Cluster"
 }
 
 variable "region" {
   type        = string
   description = "Region"
   default     = "us-west-2"
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "VPC CIDR range"
+  default     = "10.0.0.0/16"
+}
+
+variable "eks_cluster_version" {
+  type        = string
+  description = "EKS Cluster Version"
+  default     = "1.21"
+}
+
+variable "ng_instance_types" {
+  type        = string
+  description = "Node group instance types"
+  default     = "m5.large"
+}
+
+variable "ng_min_size" {
+  type        = string
+  description = "Node group minimum size"
+  default     = "3"
 }
 
 variable "aspenmesh_demo_chart" {
