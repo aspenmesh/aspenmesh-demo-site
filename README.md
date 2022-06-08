@@ -2,18 +2,12 @@
 <img src="src/frontend/static/icons/Hipster_HeroLogoCyan.svg" width="300" alt="Online Boutique" />
 </p>
 
-
-> **⚠ ATTENTION: Apache Log4j 2 advisory.**  
-> Due to [vulnerabilities](https://cloud.google.com/log4j2-security-advisory) present in earlier versions
-> of Log4j 2, we have taken down all affected container images. We highly recommend all demos and forks to now
-> use images from releases [>= v0.3.4](https://github.com/GoogleCloudPlatform/microservices-demo/releases).
-
-**Online Boutique** is a cloud-native microservices demo application.
-Online Boutique consists of a 10-tier microservices application. The application is a
+**Aspen Mesh Boutique** is a cloud-native microservices demo application.
+Aspen Mesh Boutique consists of a 10-tier microservices application. The application is a
 web-based e-commerce app where users can browse items,
 add them to the cart, and purchase them.
 
-**Aspen Mesh uses this application to demonstrate use of technologies like
+Aspen Mesh uses this application to demonstrate use of technologies like
 Kubernetes/AWS, Istio, Chaos Engineering, and OTEL. This application
 works on any Kubernetes cluster.
 
@@ -25,7 +19,7 @@ works on any Kubernetes cluster.
 
 ## Quickstart
 
-See the [README](./terraform/README.md) to deploy a new cluster and deploy this application.
+Refer to the [README](./terraform/README.md) in the `terraform` folder to deploy a new cluster and deploy this application.
 
 Then you can **Access the web frontend in a browser** using the frontend's `EXTERNAL_IP`.
 
