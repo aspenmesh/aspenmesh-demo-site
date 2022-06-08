@@ -38,8 +38,8 @@ terraform init
 ```
 #### Step 3: Update variables
 
- 1. Edit [`demo-site.auto.tfvars`](demo-site.auto.tfvars) and change the variables to appropriate settings.
  1. Edit [`values.yaml`](../charts/aspenmesh-demo/charts/frontend/values.yaml) in the `frontend` chart, and set the hostname for the demo site.
+ 1. _Optional_ Create called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
 
 #### Step 4: Run Terraform plan
 
