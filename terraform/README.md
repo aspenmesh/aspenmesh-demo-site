@@ -33,7 +33,7 @@ git clone https://github.com/aspenmesh/aspenmesh-demo-site.git
 Initialize a working directory with configuration files
 
 ```shell script
-cd aspenmesh-demo-site
+cd aspenmesh-demo-site/terraform
 terraform init
 ```
 #### Step 3: Update variables
