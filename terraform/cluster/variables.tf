@@ -9,6 +9,12 @@ variable "region" {
   default     = "us-west-2"
 }
 
+variable "cluster_version" {
+  type = string
+  description = "What version of Kubernetes"
+  default = "1.22"
+}
+
 variable "vpc_cidr" {
   type        = string
   description = "VPC CIDR range"
@@ -24,17 +30,11 @@ variable "eks_cluster_version" {
 variable "ng_instance_types" {
   type        = string
   description = "Node group instance types"
-  default     = "m5.large"
+  default     = "t3.xlarge"
 }
 
 variable "ng_min_size" {
   type        = string
   description = "Node group minimum size"
   default     = "3"
-}
-
-variable "aspenmesh_demo_chart" {
-  type        = string
-  description = "The relative path to the demo site Helm chart"
-  default     = "../charts/aspenmesh-demo/"
 }

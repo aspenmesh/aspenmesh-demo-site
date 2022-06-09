@@ -9,7 +9,7 @@ provider "kubernetes" {
   exec {
     api_version = "client.authentication.k8s.io/v1alpha1"
     command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
+    args = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
   }
 }
 
@@ -21,7 +21,7 @@ provider "helm" {
     exec {
       api_version = "client.authentication.k8s.io/v1alpha1"
       command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
+      args = ["eks", "get-token", "--cluster-name", module.eks_cluster.eks_cluster_id]
     }
   }
 }
@@ -31,6 +31,7 @@ data "aws_availability_zones" "available" {}
 locals {
   vpc_name     = join("-", [var.cluster_name, "vpc"])
   azs          = slice(data.aws_availability_zones.available.names, 0, 3)
+  #azs = ["us-east-2a","us-east-2b"]
 }
 
 module "aws_vpc" {
@@ -72,17 +73,4 @@ module "eks_cluster" {
       subnet_ids      = module.aws_vpc.private_subnets
     }
   }
-}
-
-module "istio" {
-  source = "./modules/istio"
-}
-
-module "integrations" {
-  source = "./modules/integrations"
-}
-
-module "demo_site" {
-  source               = "./modules/demo-site"
-  aspenmesh_demo_chart = var.aspenmesh_demo_chart
 }

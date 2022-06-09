@@ -9,6 +9,7 @@ resource "helm_release" "istio_base" {
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "base"
   namespace  = var.root_namespace
+  depends_on = [kubernetes_namespace.istio_system]
 }
 
 resource "helm_release" "istiod" {
@@ -16,6 +17,7 @@ resource "helm_release" "istiod" {
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "istiod"
   namespace  = var.root_namespace
+  depends_on = [kubernetes_namespace.istio_system,helm_release.istio_base]
 }
 
 resource "helm_release" "istio_ingress" {
@@ -23,5 +25,5 @@ resource "helm_release" "istio_ingress" {
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "gateway"
   namespace  = var.root_namespace
-  timeout    = 600
+  depends_on = [kubernetes_namespace.istio_system,helm_release.istiod]
 }

@@ -22,55 +22,40 @@ Ensure that you have installed the following tools before you start working with
 
 ### Deployment Steps
 
+_Note:_ Because of the way that the Kubernetes provider works, there are two separate Terraform configurations (`cluster` and `workloads`).  The Kubernetes provider requires an existing Kubernetes cluster to fetch metadata, so the EKS cluster needs to be created prior to instantiating the Kubernetes provider.
+
+If you already have a Kubernetes cluster with Istio, you can skip to Step 7.
+
 #### Step 1: Clone the repo using the command below
 
 ```shell script
 git clone https://github.com/aspenmesh/aspenmesh-demo-site.git
 ```
 
-#### Step 2: Run Terraform Init
+#### Step 2: Run Terraform Init for the EKS cluster
 
 Initialize a working directory with configuration files
 
 ```shell script
-cd aspenmesh-demo-site/terraform
+cd aspenmesh-demo-site/terraform/cluster
 terraform init
 ```
-#### Step 3: Update variables
+#### Step 3: Update variables for the EKS cluster
 
  1. Edit [`values.yaml`](../charts/aspenmesh-demo/charts/frontend/values.yaml) in the `frontend` chart, and set the hostname for the demo site.
- 1. _Optional_ Create called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+ 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
 
-#### Step 4: Run Terraform plan
-
-There is a limitation with the Kubernetes (and Helm) provider that requires manual plans and applies.  The Kubernetes provider requires an existing cluster to fetch metadata for Kubernetes manifests and Helm charts.  Therefore, you have to create the cluster first, and then deploy all of the workloads.
-
-To accomplish this, use the `target` argument for the `terraform plan` command:
+#### Step 4: Run Terraform plan for the EKS cluster
 
 ```shell script
-terraform plan -target="module.aws_vpc"
-terraform plan -target="module.eks_cluster"
-terraform plan -target="module.istio"
-terraform plan -target="module.integrations"
-terraform plan -target="module.demo_site"
+terraform plan
 ```
 
-In the future we will create separate Terraform configurations using data sources for the Kubernetes context so that you can simply run `terraform plan` in each configuration.
-
-#### Step 5: Run Terraform apply
-
-As with Step 4, there is a limitation with the Kubernetes (and Helm) provider that requires manual plans and applies.  The Kubernetes provider requires an existing cluster to fetch metadata for Kubernetes manifests and Helm charts.  Therefore, you have to create the cluster first, and then deploy all of the workloads.
-
-To accomplish this, use the `target` argument for the `terraform apply` command:
+#### Step 5: Run Terraform apply for the EKS cluster
 
 ```shell script
-terraform apply -target="module.aws_vpc"
-terraform apply -target="module.eks_cluster"
-terraform apply -target="module.istio"
-terraform apply -target="module.integrations"
-terraform apply -target="module.demo_site"
+terraform apply
 ```
-In the future we will create separate Terraform configurations using data sources for the Kubernetes context so that you can simply run `terraform apply` in each configuration.
 
 #### Step 6: Run `update-kubeconfig` command
 
@@ -78,7 +63,31 @@ In the future we will create separate Terraform configurations using data source
 
     $ aws eks --region <enter-your-region> update-kubeconfig --name <cluster-name>
 
-#### Step 7: Test that everything is deployed
+#### Step 7: Run Terraform Init for the workloads
+
+Initialize a working directory with configuration files
+
+```shell script
+cd ../workloads
+terraform init
+```
+#### Step 8: Update variables for the workloads
+
+ 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+
+#### Step 9: Run Terraform plan for the workloads
+
+```shell script
+terraform plan
+```
+
+#### Step 10: Run Terraform apply for the workloads
+
+```shell script
+terraform apply
+```
+
+#### Step 11: Test that everything is deployed
 
 Forward the ports for the following workloads in `kubectl`:
 
@@ -107,9 +116,20 @@ a6d274b8802a94151978dc2df034e93a-506542154.us-east-2.elb.amazonaws.com
 
 ## How to Destroy
 
-The following command destroys the resources created by `terraform apply`
+The following commands destroy the resources created by `terraform apply`
+
+Graceful method:
 
 ```shell script
+cd aspenmesh-demo-site/terraform/workloads/
+terraform destroy
+cd ../cluster/
 terraform destroy
 ```
 
+Brute force method:
+
+```shell script
+cd aspenmesh-demo-site/terraform/cluster
+terraform destroy
+```
