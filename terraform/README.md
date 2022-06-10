@@ -43,7 +43,7 @@ terraform init
 #### Step 3: Update variables for the EKS cluster
 
  1. Edit [`values.yaml`](../charts/aspenmesh-demo/charts/frontend/values.yaml) in the `frontend` chart, and set the hostname for the demo site.
- 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+ 1. _Optional_ Create a file called demo-site.auto.tfvars to override default values set [`variables.tf`](./variables.tf).
 
 #### Step 4: Run Terraform plan for the EKS cluster
 
@@ -73,7 +73,7 @@ terraform init
 ```
 #### Step 8: Update variables for the workloads
 
-_Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+_Optional_ Create a file called demo-site.auto.tfvars to override default values set [`variables.tf`](./variables.tf).
 
 #### Step 9: Run Terraform plan for the workloads
 
