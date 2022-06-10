@@ -73,7 +73,7 @@ terraform init
 ```
 #### Step 8: Update variables for the workloads
 
- 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+_Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
 
 #### Step 9: Run Terraform plan for the workloads
 
