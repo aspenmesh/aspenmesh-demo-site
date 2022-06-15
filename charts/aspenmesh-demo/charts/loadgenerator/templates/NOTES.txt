@@ -1,1 +1,0 @@
-Successfully installed {{ .Values.image.repository }}

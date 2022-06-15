@@ -19,7 +19,7 @@ works on any Kubernetes cluster.
 
 ## Quickstart
 
-Refer to the [README](./terraform/README.md) in the `terraform` folder to deploy a new cluster and deploy this application.
+Refer to the [README](https://github.com/aspenmesh/aspenmesh-demo-site-infra/README.md) in the `aspenmesh-demo-site-infra` repository to deploy a new cluster and deploy this application.
 
 Then you can **Access the web frontend in a browser** using the frontend's `EXTERNAL_IP`.
 
