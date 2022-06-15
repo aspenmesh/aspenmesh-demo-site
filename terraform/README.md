@@ -24,7 +24,7 @@ Ensure that you have installed the following tools before you start working with
 
 _Note:_ Because of the way that the Kubernetes provider works, there are two separate Terraform configurations (`cluster` and `workloads`).  The Kubernetes provider requires an existing Kubernetes cluster to fetch metadata, so the EKS cluster needs to be created prior to instantiating the Kubernetes provider.
 
-If you already have a Kubernetes cluster with Istio, you can skip to Step 7.
+If you already have a Kubernetes cluster with Istio, you can skip to [Step 7](#step-7-run-terraform-init-for-the-workloads).
 
 #### Step 1: Clone the repo using the command below
 
@@ -43,7 +43,7 @@ terraform init
 #### Step 3: Update variables for the EKS cluster
 
  1. Edit [`values.yaml`](../charts/aspenmesh-demo/charts/frontend/values.yaml) in the `frontend` chart, and set the hostname for the demo site.
- 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+ 1. _Optional_ Create a file called demo-site.auto.tfvars to override default values set [`variables.tf`](./variables.tf).
 
 #### Step 4: Run Terraform plan for the EKS cluster
 
@@ -73,7 +73,7 @@ terraform init
 ```
 #### Step 8: Update variables for the workloads
 
- 1. _Optional_ Create a file called demo-site.auto.tfvars and set the variable(s) in [`variables.tf`](./variables.tf) to appropriate settings.
+_Optional_ Create a file called demo-site.auto.tfvars to override default values set [`variables.tf`](./variables.tf).
 
 #### Step 9: Run Terraform plan for the workloads
 
