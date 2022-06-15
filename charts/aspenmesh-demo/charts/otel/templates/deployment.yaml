@@ -6,9 +6,7 @@ metadata:
   labels:
     {{- include "otelcollector.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.otelcollector.autoscaling.enabled }}
   replicas: {{ .Values.otelcollector.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "otelcollector.selectorLabels" . | nindent 6 }}
@@ -21,14 +19,14 @@ spec:
       labels:
         {{- include "otelcollector.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "otelcollector.serviceAccountName" . }}
+      serviceAccountName: {{ include "otel.serviceAccountName" . }}
       containers:
         - name: {{ default .Chart.Name .Values.otelcollector.container.name }}
           image: "{{ .Values.otelcollector.image.repository }}:{{ .Values.otelcollector.image.tag | default .Chart.AppVersion }}"
           args:
-            {{- toYaml .Values.otelcollector.container.args . | nindent 12 }}
+            {{- toYaml .Values.otelcollector.container.args  | nindent 12 }}
           volumeMounts:
-            {{- toYaml .Values.otelcollector.container.volumeMounts . | nindent 12 }}
+            {{- toYaml .Values.otelcollector.container.volumeMounts  | nindent 12 }}
       volumes:
-        {{- toYaml .Values.otelcollector.volumes . | nindent 8 }}
+        {{- toYaml .Values.otelcollector.volumes  | nindent 8 }}
 

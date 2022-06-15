@@ -100,7 +100,7 @@ Create the name of the service account to use
 */}}
 {{- define "otel.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "otel.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "otelcollector.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
