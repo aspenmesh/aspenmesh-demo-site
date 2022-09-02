@@ -17,7 +17,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/emailservice:$TAG ./src/emailservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/emailservice:$TAG
   build-boutiquedb:
     docker:
@@ -35,7 +35,7 @@ jobs:
           command: |
             TAG=1.0.0
             docker build -t ghcr.io/aspenmesh/boutiquedb:$TAG ./src/boutiquedb
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/boutiquedb:$TAG
   build-productcatalogservice:
     docker:
@@ -53,7 +53,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/productcatalogservice:$TAG ./src/productcatalogservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/productcatalogservice:$TAG
   build-adservice:
     docker:
@@ -71,7 +71,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/adservice:$TAG ./src/adservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/adservice:$TAG
   build-recommendationservice:
     docker:
@@ -89,7 +89,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/recommendationservice:$TAG ./src/recommendationservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/recommendationservice:$TAG
   build-shippingservice:
     docker:
@@ -107,7 +107,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/shippingservice:$TAG ./src/shippingservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/shippingservice:$TAG
   build-checkoutservice:
     docker:
@@ -125,7 +125,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/checkoutservice:$TAG ./src/checkoutservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/checkoutservice:$TAG
   build-paymentservice:
     docker:
@@ -143,7 +143,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/paymentservice:$TAG ./src/paymentservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/paymentservice:$TAG
   build-currencyservice:
     docker:
@@ -161,7 +161,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/currencyservice:$TAG ./src/currencyservice
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/currencyservice:$TAG
   build-cartservice:
     docker:
@@ -179,7 +179,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/cartservice:$TAG ./src/cartservice/src
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/cartservice:$TAG
   build-frontend:
     docker:
@@ -197,7 +197,7 @@ jobs:
           command: |
             TAG=0.1.0
             docker build -t ghcr.io/aspenmesh/frontend:$TAG ./src/frontend
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/frontend:$TAG
   build-loadgenerator:
     docker:
@@ -215,7 +215,7 @@ jobs:
           command: |
             TAG=1.0.0
             docker build -t ghcr.io/aspenmesh/loadgenerator:$TAG ./src/loadgenerator
-            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            echo $GHCR_PAT | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
             docker push ghcr.io/aspenmesh/loadgenerator:$TAG
 workflows:
   release:
