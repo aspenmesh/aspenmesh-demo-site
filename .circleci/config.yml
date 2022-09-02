@@ -221,26 +221,26 @@ workflows:
   release:
     jobs:
       - build-emailservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-boutiquedb:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-productcatalogservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-adservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-recommendationservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-shippingservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-checkoutservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-paymentservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-currencyservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-cartservice:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-frontend:
-          context: harbor-credentials
+          context: ghcr-credentials
       - build-loadgenerator:
-          context: harbor-credentials
+          context: ghcr-credentials
