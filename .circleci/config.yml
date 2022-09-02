@@ -16,9 +16,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/emailservice:$TAG ./src/emailservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/emailservice:$TAG
+            docker build -t ghcr.io/aspenmesh/emailservice:$TAG ./src/emailservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/emailservice:$TAG
   build-boutiquedb:
     docker:
       - image: cimg/base:2022.04
@@ -34,9 +34,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=1.0.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG ./src/boutiquedb
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/boutiquedb:$TAG
+            docker build -t ghcr.io/aspenmesh/boutiquedb:$TAG ./src/boutiquedb
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/boutiquedb:$TAG
   build-productcatalogservice:
     docker:
       - image: cimg/base:2022.04
@@ -52,9 +52,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG ./src/productcatalogservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/productcatalogservice:$TAG
+            docker build -t ghcr.io/aspenmesh/productcatalogservice:$TAG ./src/productcatalogservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/productcatalogservice:$TAG
   build-adservice:
     docker:
       - image: cimg/base:2022.04
@@ -70,9 +70,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG ./src/adservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/adservice:$TAG
+            docker build -t ghcr.io/aspenmesh/adservice:$TAG ./src/adservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/adservice:$TAG
   build-recommendationservice:
     docker:
       - image: cimg/base:2022.04
@@ -88,9 +88,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG ./src/recommendationservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/recommendationservice:$TAG
+            docker build -t ghcr.io/aspenmesh/recommendationservice:$TAG ./src/recommendationservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/recommendationservice:$TAG
   build-shippingservice:
     docker:
       - image: cimg/base:2022.04
@@ -106,9 +106,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG ./src/shippingservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/shippingservice:$TAG
+            docker build -t ghcr.io/aspenmesh/shippingservice:$TAG ./src/shippingservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/shippingservice:$TAG
   build-checkoutservice:
     docker:
       - image: cimg/base:2022.04
@@ -124,9 +124,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG ./src/checkoutservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/checkoutservice:$TAG
+            docker build -t ghcr.io/aspenmesh/checkoutservice:$TAG ./src/checkoutservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/checkoutservice:$TAG
   build-paymentservice:
     docker:
       - image: cimg/base:2022.04
@@ -142,9 +142,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG ./src/paymentservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/paymentservice:$TAG
+            docker build -t ghcr.io/aspenmesh/paymentservice:$TAG ./src/paymentservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/paymentservice:$TAG
   build-currencyservice:
     docker:
       - image: cimg/base:2022.04
@@ -160,9 +160,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG ./src/currencyservice
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/currencyservice:$TAG
+            docker build -t ghcr.io/aspenmesh/currencyservice:$TAG ./src/currencyservice
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/currencyservice:$TAG
   build-cartservice:
     docker:
       - image: cimg/base:2022.04
@@ -178,9 +178,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG ./src/cartservice/src
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/cartservice:$TAG
+            docker build -t ghcr.io/aspenmesh/cartservice:$TAG ./src/cartservice/src
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/cartservice:$TAG
   build-frontend:
     docker:
       - image: cimg/base:2022.04
@@ -196,9 +196,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=0.1.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG ./src/frontend
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/frontend:$TAG
+            docker build -t ghcr.io/aspenmesh/frontend:$TAG ./src/frontend
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/frontend:$TAG
   build-loadgenerator:
     docker:
       - image: cimg/base:2022.04
@@ -214,9 +214,9 @@ jobs:
           name: Create and push image
           command: |
             TAG=1.0.0
-            docker build -t harbor.pintobean.xyz/aspenmesh-demo-site/loadgenerator:$TAG ./src/loadgenerator
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/aspenmesh-demo-site/loadgenerator:$TAG
+            docker build -t ghcr.io/aspenmesh/loadgenerator:$TAG ./src/loadgenerator
+            echo $GHCR_PASSWORD | docker login ghcr.io/aspenmesh -u $GHCR_USERNAME --password-stdin
+            docker push ghcr.io/aspenmesh/loadgenerator:$TAG
 workflows:
   release:
     jobs:
